@@ -45,7 +45,7 @@
 (define çift-sayı?
   (lambda (x) ((x zıt) doğru)))
 
-;(n, n2 -> n+1, n)
+;(n, n2) -> (n+1, n)
 (define fi
   (lambda (liste) 
     (lambda (z) ((z (++ (liste doğru))) (liste doğru)))))
