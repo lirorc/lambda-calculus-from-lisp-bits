@@ -28,6 +28,12 @@
 ;two
 (define iki
   (lambda (f) (lambda (x) (f (f x)))))
+;three
+(define üç
+  (lambda (f) (lambda (x) (f (f (f x))))))
+;four
+(define dört
+  (lambda (f) (lambda (x) (f (f (f (f x))))))
 
 ;addition: ((iki ++) bir) -> 2+1 = 3
 (define ++
@@ -82,3 +88,18 @@
   (lambda (n)
     (((sıfır? n) sıfır)
      `((,n ++) (topla (-- ,n))))))
+
+;factorial: (faktoryal dört) -> 4*3*2*1 = 24
+(define faktoryal
+  (lambda (n)
+    (((sıfır? n) bir)
+     `((** ,n) (faktoryal (-- ,n))))))
+
+;for debugging: (sayı-göster dört) -> ay ay ay ay (almost a jojo reference)
+(define sayı-göster
+  (lambda (x) ((x (lambda (x) (display "ay\n"))) sıfır)))
+
+;for debugging: (lam-sayı 3) -> üç
+(define lam-sayı
+  (lambda (x)
+    ((bir ++) (if (> x 1) (lam-sayı (- x 1)) sıfır))))
