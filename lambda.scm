@@ -1,7 +1,9 @@
 ;true
-(define doğru (lambda (x) (lambda (y) x)))
+(define doğru (lambda (x) (lambda (y)
+                      (eval x (interaction-environment)))))
 ;false
-(define yanlış (lambda (x) (lambda (y) y)))
+(define yanlış (lambda (x) (lambda (y)
+                       (eval y (interaction-environment)))))
 
 ;not: (zıt doğru) -> yanlış
 (define zıt 
@@ -31,6 +33,10 @@
 (define ++
   (lambda (y) (lambda (f)
                 (lambda (x) (f ((y f) x))))))
+;multiplication: ((** bir) iki) -> 1*2 = 2
+(define **
+  (lambda (x) (lambda (y)
+                (lambda (f) (x (y f))))))
 
 ;is-zero?
 (define sıfır?
@@ -65,3 +71,14 @@
   (lambda (x) (lambda (y)
                 ((ve ((büyük-eşittir? x) y))
                      ((büyük-eşittir? y) x)))))
+;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
+(define büyüktür?
+  (lambda (x) (lambda (y)
+                ((ve ((büyük-eşittir? x) y))
+                     (zıt ((eşittir? x) y))))))
+
+;add all integers to n: (topla n) -> 1 + 2 + .. + (n-1) + n
+(define topla
+  (lambda (n)
+    (((sıfır? n) sıfır)
+     `((,n ++) (topla (-- ,n))))))
