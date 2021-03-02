@@ -44,6 +44,11 @@
   (lambda (x) (lambda (y)
                 (lambda (f) (x (y f))))))
 
+;exponentional: ((^^ iki) üç) -> 2^3 = 8
+(define ^^
+  (lambda (n) (lambda (m)
+    (m n))))
+
 ;is-zero?
 (define sıfır?
   (lambda (x) (((x yanlış) zıt) yanlış)))
