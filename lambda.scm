@@ -59,8 +59,8 @@
 
 ;(n, n2 -> n+1, n)
 (define fi
-  (lambda (liste) 
-    (lambda (z) ((z (++ (liste doğru))) (liste doğru)))))
+  (lambda (liste-x) 
+    (lambda (z) ((z (++ (liste-x doğru))) (liste-x doğru)))))
 
 ;predecessor: ((bir --) iki) -> 2-1 = 1
 (define --
@@ -83,6 +83,13 @@
                 ((ve ((büyük-eşittir? x) y))
                      (zıt ((eşittir? x) y))))))
 
+;remainder: ((kalan dört) üç) -> bir
+(define kalan
+  (lambda (n) (lambda (m)
+    (((eğer ((büyük-eşittir? n) m))
+            `((kalan ((,m --) ,n)) ,m))
+            n))))
+  
 ;add all integers to n: (topla n) -> 1 + 2 + .. + (n-1) + n
 (define topla
   (lambda (n)
