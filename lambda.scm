@@ -59,8 +59,8 @@
 
 ;(n, n2 -> n+1, n)
 (define fi
-  (lambda (liste-x) 
-    (lambda (z) ((z (++ (liste-x doğru))) (liste-x doğru)))))
+  (lambda (listem) 
+    (lambda (z) ((z (++ (listem doğru))) (listem doğru)))))
 
 ;predecessor: ((bir --) iki) -> 2-1 = 1
 (define --
