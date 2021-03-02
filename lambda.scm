@@ -8,12 +8,18 @@
 ;not: (zıt doğru) -> yanlış
 (define zıt 
   (lambda (x) ((x yanlış) doğru)))
+
 ;and: ((ve doğru) yanlış) -> yanlış
 (define ve
   (lambda (x) (lambda (y) ((x y) yanlış))))
+
 ;or: ((veya yanlış) doğru) -> doğru
 (define veya
   (lambda (x) (lambda (y) ((x doğru) y))))
+
+;xor: ((yada doğru) yanlış) -> doğru
+(define yada
+  (lambda (x) (lambda (y) ((x (zıt y)) y))))
 
 ;if: (((eğer doğru) bir) sıfır) -> bir
 (define eğer
@@ -94,7 +100,14 @@
     (((eğer ((büyük-eşittir? n) m))
             `((kalan ((,m --) ,n)) ,m))
             n))))
-  
+
+;division: ((// dört) üç) -> 4/3 = 1
+(define //
+  (lambda (numo) (lambda (deno)
+    (((eğer ((büyüktür? numo) deno))
+      `((bir ++) ((// ((,deno --) ,numo)) ,deno)))
+      sıfır))))
+
 ;add all integers to n: (topla n) -> 1 + 2 + .. + (n-1) + n
 (define topla
   (lambda (n)
