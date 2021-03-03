@@ -131,6 +131,17 @@
             bir)
             `((** ,n) (faktoryal (-- ,n))))))
 
+;fizz-buzz: 1=fizz, 2=buzz, 3=fizz-buzz: (fizz-buzz beş) -> 2
+(define fizz-buzz
+  (lambda (n)
+    (((((eğer (sıfır? ((kalan n) üç)))
+        bir)
+       sıfır)
+      ++)
+     (((eğer (sıfır? ((kalan n) beş)))
+       iki)
+      sıfır))))
+
 ;for debugging: (sayı-göster dört) -> ay ay ay ay (almost a jojo reference)
 (define sayı-göster
   (lambda (x) ((x (lambda (x) (display "ay\n"))) sıfır)))
