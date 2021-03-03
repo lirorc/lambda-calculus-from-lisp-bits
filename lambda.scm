@@ -1,9 +1,9 @@
 ;true
 (define doğru (lambda (x) (lambda (y)
-                      (eval x (interaction-environment)))))
+  (eval x (interaction-environment)))))
 ;false
 (define yanlış (lambda (x) (lambda (y)
-                       (eval y (interaction-environment)))))
+  (eval y (interaction-environment)))))
 
 ;not: (zıt doğru) -> yanlış
 (define zıt 
@@ -44,12 +44,12 @@
 ;addition: ((iki ++) bir) -> 2+1 = 3
 (define ++
   (lambda (y) (lambda (f)
-                (lambda (x) (f ((y f) x))))))
+    (lambda (x) (f ((y f) x))))))
 
 ;multiplication: ((** bir) iki) -> 1*2 = 2
 (define **
   (lambda (x) (lambda (y)
-                (lambda (f) (x (y f))))))
+    (lambda (f) (x (y f))))))
 
 ;exponentional: ((^^ iki) üç) -> 2^3 = 8
 (define ^^
@@ -63,7 +63,15 @@
 ;make a pair: ((liste iki) bir) -> [iki, bir]
 (define liste
   (lambda (x) (lambda (y)
-                (lambda (z) ((z x) y)))))
+    (lambda (z) ((z x) y)))))
+
+;car: (baş ((liste iki) bir)) -> iki
+(define baş
+  (lambda (listem) (listem doğru)))
+
+;cdr: (kuyruk ((liste iki) bir)) -> bir
+(define kuyruk
+  (lambda (listem) (listem yanlış)))
 
 ;even?: (çift-sayı? iki) -> doğru
 (define çift-sayı?
@@ -82,19 +90,18 @@
 ;greater-than-or-equal?: ((büyük-eşittir iki) bir) -> doğru
 (define büyük-eşittir?
   (lambda (x) (lambda (y)
-                (sıfır? ((x --) y)))))
+    (sıfır? ((x --) y)))))
 
 ;equal?: ((eşittir? iki) iki) -> doğru
 (define eşittir?
   (lambda (x) (lambda (y)
-                ((ve ((büyük-eşittir? x) y))
-                     ((büyük-eşittir? y) x)))))
+    ((ve ((büyük-eşittir? x) y))
+         ((büyük-eşittir? y) x)))))
 
   ;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
 (define büyüktür?
   (lambda (x) (lambda (y)
-                ((ve ((büyük-eşittir? x) y))
-                     (zıt ((büyük-eşittir? y) x))))))
+    (zıt ((büyük-eşittir? y) x)))))
 
 ;remainder: ((kalan dört) üç) -> bir
 (define kalan
