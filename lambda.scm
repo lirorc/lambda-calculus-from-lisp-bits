@@ -7,23 +7,28 @@
 
 ;not: (zıt doğru) -> yanlış
 (define zıt 
-  (lambda (x) ((x yanlış) doğru)))
+  (lambda (x)
+    ((x yanlış) doğru)))
 
 ;and: ((ve doğru) yanlış) -> yanlış
 (define ve
-  (lambda (x) (lambda (y) ((x y) yanlış))))
+  (lambda (x) (lambda (y)
+    ((x y) yanlış))))
 
-;or: ((veya yanlış) doğru) -> doğru
+;or: ((veya doğru) yanlış) -> doğru
 (define veya
-  (lambda (x) (lambda (y) ((x doğru) y))))
+  (lambda (x) (lambda (y)
+    ((x doğru) y))))
 
 ;xor: ((yada doğru) yanlış) -> doğru
 (define yada
-  (lambda (x) (lambda (y) ((x (zıt y)) y))))
+  (lambda (x) (lambda (y)
+    ((x (zıt y)) y))))
 
 ;if: (((eğer doğru) bir) sıfır) -> bir
 (define eğer
-  (lambda (x) (lambda (y) (lambda (z) ((x y) z)))))
+  (lambda (x) (lambda (y) (lambda (z)
+    ((x y) z)))))
 
 ;zero
 (define sıfır
@@ -40,6 +45,9 @@
 ;four
 (define dört
   (lambda (f) (lambda (x) (f (f (f (f x))))))
+;five
+(define beş
+  (lambda (f) (lambda (x) (f (f (f (f (f x))))))))
 
 ;addition: ((iki ++) bir) -> 2+1 = 3
 (define ++
