@@ -98,7 +98,7 @@
     ((ve ((büyük-eşittir? x) y))
          ((büyük-eşittir? y) x)))))
 
-  ;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
+;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
 (define büyüktür?
   (lambda (x) (lambda (y)
     (zıt ((büyük-eşittir? y) x)))))
