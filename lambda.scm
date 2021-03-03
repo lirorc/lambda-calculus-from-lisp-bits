@@ -92,7 +92,7 @@
 (define büyüktür?
   (lambda (x) (lambda (y)
                 ((ve ((büyük-eşittir? x) y))
-                     (zıt ((eşittir? x) y))))))
+                     (zıt ((büyük-eşittir? y) x))))))
 
 ;remainder: ((kalan dört) üç) -> bir
 (define kalan
