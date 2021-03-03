@@ -45,6 +45,7 @@
 (define ++
   (lambda (y) (lambda (f)
                 (lambda (x) (f ((y f) x))))))
+
 ;multiplication: ((** bir) iki) -> 1*2 = 2
 (define **
   (lambda (x) (lambda (y)
@@ -88,7 +89,8 @@
   (lambda (x) (lambda (y)
                 ((ve ((büyük-eşittir? x) y))
                      ((büyük-eşittir? y) x)))))
-;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
+
+  ;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
 (define büyüktür?
   (lambda (x) (lambda (y)
                 ((ve ((büyük-eşittir? x) y))
@@ -105,20 +107,22 @@
 (define //
   (lambda (numo) (lambda (deno)
     (((eğer ((büyüktür? numo) deno))
-      `((bir ++) ((// ((,deno --) ,numo)) ,deno)))
-      sıfır))))
+            `((bir ++) ((// ((,deno --) ,numo)) ,deno)))
+            sıfır))))
 
 ;add all integers to n: (topla n) -> 1 + 2 + .. + (n-1) + n
 (define topla
   (lambda (n)
-    (((sıfır? n) sıfır)
-     `((,n ++) (topla (-- ,n))))))
+    (((eğer (sıfır? n))
+            sıfır)
+            `((,n ++) (topla (-- ,n))))))
 
 ;factorial: (faktoryal dört) -> 4*3*2*1 = 24
 (define faktoryal
   (lambda (n)
-    (((sıfır? n) bir)
-     `((** ,n) (faktoryal (-- ,n))))))
+    (((eğer (sıfır? n))
+            bir)
+            `((** ,n) (faktoryal (-- ,n))))))
 
 ;for debugging: (sayı-göster dört) -> ay ay ay ay (almost a jojo reference)
 (define sayı-göster
