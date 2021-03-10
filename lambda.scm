@@ -44,7 +44,7 @@
   (lambda (f) (lambda (x) (f (f (f x))))))
 ;four
 (define dört
-  (lambda (f) (lambda (x) (f (f (f (f x))))))
+  (lambda (f) (lambda (x) (f (f (f (f x)))))))
 ;five
 (define beş
   (lambda (f) (lambda (x) (f (f (f (f (f x))))))))
