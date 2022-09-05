@@ -154,7 +154,7 @@
 (define show-number
   (lambda (x) ((x (lambda (x) (display "ay\n"))) zero)))
 
-;for debugging: (lam-num 3) -> üç
+;for debugging: (lam-num 3) -> three
 (define lam-num
   (lambda (x)
     ((one ++) (if (> x 1) (lam-num (- x 1)) zero))))
