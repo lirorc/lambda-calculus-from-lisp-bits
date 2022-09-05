@@ -1,160 +1,160 @@
 ;true
-(define doğru (lambda (x) (lambda (y)
+(define true (lambda (x) (lambda (y)
   (eval x (interaction-environment)))))
 ;false
-(define yanlış (lambda (x) (lambda (y)
+(define false (lambda (x) (lambda (y)
   (eval y (interaction-environment)))))
 
-;not: (zıt doğru) -> yanlış
-(define zıt 
+;not: (nott true) -> false
+(define nott
   (lambda (x)
-    ((x yanlış) doğru)))
+    ((x false) true)))
 
-;and: ((ve doğru) yanlış) -> yanlış
-(define ve
+;and: ((andd true) false) -> false
+(define andd
   (lambda (x) (lambda (y)
-    ((x y) yanlış))))
+    ((x y) false))))
 
-;or: ((veya doğru) yanlış) -> doğru
-(define veya
+;or: ((orr true) false) -> true
+(define orr
   (lambda (x) (lambda (y)
-    ((x doğru) y))))
+    ((x true) y))))
 
-;xor: ((yada doğru) yanlış) -> doğru
-(define yada
+;xor: ((xor true) false) -> true
+(define xor
   (lambda (x) (lambda (y)
-    ((x (zıt y)) y))))
+    ((x (nott y)) y))))
 
-;if: (((eğer doğru) bir) sıfır) -> bir
-(define eğer
+;if: (((if true) one) zero) -> one
+(define iff
   (lambda (x) (lambda (y) (lambda (z)
     ((x y) z)))))
 
 ;zero
-(define sıfır
+(define zero
   (lambda (f) (lambda (x) x)))
 ;one
-(define bir
+(define one
   (lambda (f) (lambda (x) (f x))))
 ;two
-(define iki
+(define two
   (lambda (f) (lambda (x) (f (f x)))))
 ;three
-(define üç
+(define three
   (lambda (f) (lambda (x) (f (f (f x))))))
 ;four
-(define dört
+(define four
   (lambda (f) (lambda (x) (f (f (f (f x)))))))
 ;five
-(define beş
+(define five
   (lambda (f) (lambda (x) (f (f (f (f (f x))))))))
 
-;addition: ((iki ++) bir) -> 2+1 = 3
+;addition: ((two ++) one) -> 2+1 = 3
 (define ++
   (lambda (y) (lambda (f)
     (lambda (x) (f ((y f) x))))))
 
-;multiplication: ((** bir) iki) -> 1*2 = 2
+;multiplication: ((** one) two) -> 1*2 = 2
 (define **
   (lambda (x) (lambda (y)
     (lambda (f) (x (y f))))))
 
-;exponentional: ((^^ iki) üç) -> 2^3 = 8
-(define ^^
+;exponentional: ((^ two) three -> 2^3 = 8
+(define ^
   (lambda (n) (lambda (m)
     (m n))))
 
-;is-zero?
-(define sıfır?
-  (lambda (x) (((x yanlış) zıt) yanlış)))
+;zero?
+(define iszero?
+  (lambda (x) (((x false) nott) false)))
 
-;make a pair: ((liste iki) bir) -> [iki, bir]
-(define liste
+;make a pair: ((pair two) one) -> [two, one]
+(define pair
   (lambda (x) (lambda (y)
     (lambda (z) ((z x) y)))))
 
-;car: (baş ((liste iki) bir)) -> iki
-(define baş
-  (lambda (listem) (listem doğru)))
+;car: (head ((pair two) one)) -> two
+(define head
+  (lambda (p) (p true)))
 
-;cdr: (kuyruk ((liste iki) bir)) -> bir
-(define kuyruk
-  (lambda (listem) (listem yanlış)))
+;cdr: (tail ((pair two) one)) -> one
+(define tail
+  (lambda (p) (p false)))
 
-;even?: (çift-sayı? iki) -> doğru
-(define çift-sayı?
-  (lambda (x) ((x zıt) doğru)))
+;even?: (iseven? two) -> true
+(define iseven?
+  (lambda (x) ((x nott) true)))
 
 ;(n, n2 -> n+1, n)
-(define fi
-  (lambda (listem) 
-    (lambda (z) ((z (++ (listem doğru))) (listem doğru)))))
+(define phi
+  (lambda (p)
+    (lambda (z) ((z (++ (p true))) (p true)))))
 
-;predecessor: ((bir --) iki) -> 2-1 = 1
+;predecessor: ((one --) two) -> 2-1 = 1
 (define --
   (lambda (n)
-    (((n fi) ((liste sıfır) sıfır)) yanlış)))
+    (((n phi) ((pair zero) zero)) false)))
 
-;greater-than-or-equal?: ((büyük-eşittir iki) bir) -> doğru
-(define büyük-eşittir?
+;greater-than-or-equal?: ((ge? two) one) -> true
+(define ge?
   (lambda (x) (lambda (y)
-    (sıfır? ((x --) y)))))
+    (iszero? ((x --) y)))))
 
-;equal?: ((eşittir? iki) iki) -> doğru
-(define eşittir?
+;equal?: ((e? two) two) -> true
+(define e?
   (lambda (x) (lambda (y)
-    ((ve ((büyük-eşittir? x) y))
-         ((büyük-eşittir? y) x)))))
+    ((andd ((ge? x) y))
+         ((ge? y) x)))))
 
-;greater?: ((büyüktür? iki) bir) -> doğru, ((büyüktür? iki) iki) -> yanlış
-(define büyüktür?
+;greater?: ((g two) one) -> true, ((g? two) two) -> false
+(define g?
   (lambda (x) (lambda (y)
-    (zıt ((büyük-eşittir? y) x)))))
+    (nott ((ge? y) x)))))
 
-;remainder: ((kalan dört) üç) -> bir
-(define kalan
+;remainder: ((rem four) three) -> one
+(define rem
   (lambda (n) (lambda (m)
-    (((eğer ((büyük-eşittir? n) m))
-            `((kalan ((,m --) ,n)) ,m))
+    (((iff ((ge? n) m))
+            `((rem ((,m --) ,n)) ,m))
             n))))
 
-;division: ((// dört) üç) -> 4/3 = 1
+;division: ((// four) three) -> 4/3 = 1
 (define //
   (lambda (numo) (lambda (deno)
-    (((eğer ((büyüktür? numo) deno))
-            `((bir ++) ((// ((,deno --) ,numo)) ,deno)))
-            sıfır))))
+    (((iff ((g? numo) deno))
+            `((one ++) ((// ((,deno --) ,numo)) ,deno)))
+            zero))))
 
-;add all integers to n: (topla n) -> 1 + 2 + .. + (n-1) + n
-(define topla
+;add all integers to n: (sum n) -> 1 + 2 + .. + (n-1) + n
+(define sum
   (lambda (n)
-    (((eğer (sıfır? n))
-            sıfır)
-            `((,n ++) (topla (-- ,n))))))
+    (((iff (iszero? n))
+            zero)
+            `((,n ++) (sum (-- ,n))))))
 
-;factorial: (faktoryal dört) -> 4*3*2*1 = 24
-(define faktoryal
+;factorial: (factorial four) -> 4*3*2*1 = 24
+(define factorial
   (lambda (n)
-    (((eğer (sıfır? n))
-            bir)
-            `((** ,n) (faktoryal (-- ,n))))))
+    (((iff (iszero? n))
+            one)
+            `((** ,n) (factorial (-- ,n))))))
 
-;fizz-buzz: 1=fizz, 2=buzz, 3=fizz-buzz: (fizz-buzz beş) -> 2
+;fizz-buzz: 1=fizz, 2=buzz, 3=fizz-buzz: (fizz-buzz five) -> 2
 (define fizz-buzz
   (lambda (n)
-    (((((eğer (sıfır? ((kalan n) üç)))
-        bir)
-       sıfır)
+    (((((iff (iszero? ((rem n) three)))
+        one)
+       zero)
       ++)
-     (((eğer (sıfır? ((kalan n) beş)))
-       iki)
-      sıfır))))
+     (((iff (iszero? ((rem n) five)))
+       two)
+      zero))))
 
-;for debugging: (sayı-göster dört) -> ay ay ay ay (almost a jojo reference)
-(define sayı-göster
-  (lambda (x) ((x (lambda (x) (display "ay\n"))) sıfır)))
+;for debugging: (show-number four) -> ay ay ay ay (almost a jojo reference)
+(define show-number
+  (lambda (x) ((x (lambda (x) (display "ay\n"))) zero)))
 
-;for debugging: (lam-sayı 3) -> üç
-(define lam-sayı
+;for debugging: (lam-num 3) -> üç
+(define lam-num
   (lambda (x)
-    ((bir ++) (if (> x 1) (lam-sayı (- x 1)) sıfır))))
+    ((one ++) (if (> x 1) (lam-num (- x 1)) zero))))
