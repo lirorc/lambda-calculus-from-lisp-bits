@@ -1,6 +1,8 @@
 # lambda-calculus-from-lisp-bits
 Implementation of the lambda calculus using scheme lisp.
 
-So far using only **define** and **lambda** (and **eval** I guess)
+I somewhat figured out how to use Y combinator sort of thing
+for recursion, thanks to "Why of Y".
 
-I couldn't figure out how to use Y combinator yet so I use define for recursion
+betterlambda.scm uses only "let" for definitions, lambda.scm is
+thusly deprecated.
