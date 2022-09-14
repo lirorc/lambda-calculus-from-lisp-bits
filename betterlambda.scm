@@ -1,3 +1,9 @@
+;for debugging: (show-number four) -> I I I I
+(define show-number
+  (lambda (x) ((x (lambda (x) (display "I "))) (lambda (f) (lambda (x) x)))
+    (display "\n")))
+
+(show-number
 (let
   ((true (lambda (x) (lambda (y) (eval x (interaction-environment)))))
    (false (lambda (x) (lambda (y) (eval y (interaction-environment))))))
@@ -34,5 +40,9 @@
    (l? (lambda (x) (lambda (y) (not ((ge? x) y))))))
 (let
   ((remainder (lambda (h n m)
-                (((if ((l? n) m)) n) (list h h ((m -) n)  m)))))
-  (remainder remainder five one)))))))))
+                (((if ((l? n) m)) n) (list h h ((m -) n)  m))))
+   (/ (lambda (f) (lambda (numo) (lambda (deno)
+     (((if ((g? numo) deno))
+         (list (one +) (list ((f f) ((deno -) numo)) deno)))
+         zero))))))
+  (((/ /) ((five +) four)) two))))))))))
