@@ -42,7 +42,11 @@
   ((remainder (lambda (h n m)
                 (((if ((l? n) m)) n) (list h h ((m -) n)  m))))
    (/ (lambda (f) (lambda (numo) (lambda (deno)
-     (((if ((g? numo) deno))
+     (((if ((ge? numo) deno))
          (list (one +) (list ((f f) ((deno -) numo)) deno)))
          zero))))))
-  (((/ /) ((five +) four)) two))))))))))
+(let
+  ((fizbuzz (lambda (n)
+   (((((if (zero? (remainder remainder n three))) one) zero) +)
+     (((if (zero? (remainder remainder n five))) two) zero)))))
+  (((/ /) ((five +) (fizbuzz ((* five) three)))) two)))))))))))

@@ -121,7 +121,7 @@
 ;division: ((// four) three) -> 4/3 = 1
 (define //
   (lambda (numo) (lambda (deno)
-    (((iff ((g? numo) deno))
+    (((iff ((ge? numo) deno))
             `((one ++) ((// ((,deno --) ,numo)) ,deno)))
             zero))))
 
@@ -150,9 +150,10 @@
        two)
       zero))))
 
-;for debugging: (show-number four) -> ay ay ay ay (almost a jojo reference)
+;for debugging: (show-number four) -> I I I I
 (define show-number
-  (lambda (x) ((x (lambda (x) (display "ay\n"))) zero)))
+  (lambda (x) ((x (lambda (x) (display "I "))) (lambda (f) (lambda (x) x)))
+    (display "\n")))
 
 ;for debugging: (lam-num 3) -> three
 (define lam-num
