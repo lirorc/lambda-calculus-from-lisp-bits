@@ -125,7 +125,7 @@
             `((one ++) ((// ((,deno --) ,numo)) ,deno)))
             zero))))
 
-;add all integers to n: (sum n) -> 1 + 2 + .. + (n-1) + n
+;add all integers to n: (sum n) -> 1 + 2 + .. + (n-1) + n ie. n*(n+1)/2
 (define sum
   (lambda (n)
     (((iff (iszero? n))
